@@ -76,7 +76,7 @@ std::string decoding(std::string text, std::string key)
     std::vector<uint32_t> chiffre;
     chiffre_generator(chiffre, key);
 
-    // Encoding Text
+    // Decoding Text
     std::string result{};
     std::int32_t index = 0;
     for (auto c : text)
