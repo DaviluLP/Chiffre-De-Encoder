@@ -17,13 +17,21 @@ static void to_upper_case(std::string& str)
     }
 }
 
-static void upper_index(std::int32_t& index, auto const& size)
+static void index_upper(std::int32_t& index, auto const& size)
 {
     ++index;
 
     if (index >= size)
     {
         index = 0;
+    }
+}
+
+static void chiffre_generator(std::vector<uint32_t>& chiffre, std::string const& key)
+{
+    for (auto const& k : key)
+    {
+        chiffre.push_back(k - 64);
     }
 }
 
@@ -34,18 +42,12 @@ std::string encoding(std::string text, std::string key)
     to_upper_case(text);
     to_upper_case(key);
 
+    std::vector<uint32_t> chiffre;
+    chiffre_generator(chiffre, key);
+
     // Encoding Text
     std::string result{};
-
-    std::vector<uint32_t> chiffre;
-
-    for (auto const& k : key)
-    {
-        chiffre.push_back(k - 64);
-    }
-
     std::int32_t index = 0;
-
     for (auto c : text)
     {
         if (!isspace(c))
@@ -56,7 +58,38 @@ std::string encoding(std::string text, std::string key)
                 c += 26;
             }
 
-            upper_index(index, chiffre.size());
+            index_upper(index, chiffre.size());
+        }
+
+        result += c;
+    }
+
+    return result;
+}
+
+std::string decoding(std::string text, std::string key)
+{
+    // Uppercase Letters
+    to_upper_case(text);
+    to_upper_case(key);
+
+    std::vector<uint32_t> chiffre;
+    chiffre_generator(chiffre, key);
+
+    // Encoding Text
+    std::string result{};
+    std::int32_t index = 0;
+    for (auto c : text)
+    {
+        if (!isspace(c))
+        {
+            c += chiffre[index];
+            if (c > 'Z')
+            {
+                c -= 26;
+            }
+
+            index_upper(index, chiffre.size());
         }
 
         result += c;
