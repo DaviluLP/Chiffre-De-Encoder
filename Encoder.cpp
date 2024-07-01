@@ -2,6 +2,7 @@
 #include <iostream>
 #include <cstdint>
 #include <string>
+#include <vector>
 
 #include "Encoder.h"
 
@@ -16,7 +17,18 @@ static void to_upper_case(std::string& str)
     }
 }
 
-std::string encoding(std::string text, std::string key) {
+static void upper_index(std::int32_t& index, auto const& size)
+{
+    ++index;
+
+    if (index >= size)
+    {
+        index = 0;
+    }
+}
+
+std::string encoding(std::string text, std::string key)
+{
 
     // Uppercase Letters
     to_upper_case(text);
@@ -25,7 +37,30 @@ std::string encoding(std::string text, std::string key) {
     // Encoding Text
     std::string result{};
 
+    std::vector<uint32_t> chiffre;
 
+    for (auto const& k : key)
+    {
+        chiffre.push_back(k - 64);
+    }
+
+    std::int32_t index = 0;
+
+    for (auto c : text)
+    {
+        if (!isspace(c))
+        {
+            c -= chiffre[index];
+            if (c < 'A')
+            {
+                c += 26;
+            }
+
+            upper_index(index, chiffre.size());
+        }
+
+        result += c;
+    }
 
     return result;
 }

@@ -9,4 +9,8 @@ int main()
 
     auto new_text = encoding(input_text, input_key);
 
+    std::cout << new_text << '\n';
+
+    char key;
+    std::cin >> key;
 }
