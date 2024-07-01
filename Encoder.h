@@ -4,14 +4,6 @@
 
 #pragma once
 
+#include <string>
 
-
-class Encoder {
-private:
-
-public:
-    void encoding(char text[], char key[]);
-};
-
-
-
+[[nodiscard]] std::string encoding(std::string text, std::string key);

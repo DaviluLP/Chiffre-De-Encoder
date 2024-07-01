@@ -1,9 +1,37 @@
 
 #include <iostream>
 #include <cstdint>
+#include <string>
 
 #include "Encoder.h"
 
+static void to_upper_case(std::string& str)
+{
+    for (auto& c : str)
+    {
+        if (c >= 'a' && c <= 'z')
+        {
+            c -= 32;
+        }
+    }
+}
+
+std::string encoding(std::string text, std::string key) {
+
+    // Uppercase Letters
+    to_upper_case(text);
+    to_upper_case(key);
+
+    // Encoding Text
+    std::string result{};
+
+
+
+    return result;
+}
+
+
+/*
 void Encoder::encoding(char text[], char key[]) {
     std::uint32_t lenText = 0;
     std::uint32_t lenKey = 0;
@@ -73,4 +101,4 @@ void Encoder::encoding(char text[], char key[]) {
 
     std::cout << chiffreText << "\n";
 }
-
+*/
